@@ -5,16 +5,15 @@ cursor = conn.cursor()
 
 
 query = '''
-    INSERT INTO points (x, y) 
-    VALUES
-    (7, 8),
-    (8, 7),
-    (9, 6);
+    SELECT *
+    FROM points;
 '''
 
 
 
 cursor.execute(query)
 
-conn.commit()
+result = cursor.fetchall()
+
 conn.close()
+print(result)

@@ -5,11 +5,8 @@ cursor = conn.cursor()
 
 
 query = '''
-    INSERT INTO points (x, y) 
-    VALUES
-    (7, 8),
-    (8, 7),
-    (9, 6);
+    DELETE FROM points
+    WHERE id > 2;
 '''
 
 

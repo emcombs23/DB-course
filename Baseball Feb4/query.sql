@@ -10,3 +10,17 @@ FROM batting
 WHERE teamID = 'PHI'
 GROUP BY yearID
 ORDER BY yearID;
+
+SELECT yearID, SUM(HR) as HRs
+FROM batting
+WHERE teamID = 'PHI'
+GROUP BY yearID
+ORDER BY yearID Desc;
+
+---Find all players whose playerID starts with 'ch'
+SELECT DISTINCT(playerID)
+FROM batting
+WHERE playerID LIKE'ch%';
+
+---Find total HRs by team in 2025
+C

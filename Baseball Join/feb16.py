@@ -32,7 +32,7 @@ def getHomers(playerID):
     conn = sqlite3.connect('../baseball.db')
     cursor = conn.cursor()
     query = f"""
-    SELECT yearID, sum(HR) as total_HR
+    SELECT CAST(yearID AS TEXT) AS yearID, sum(HR) as total_HR
     FROM batting
     WHERE playerID = '{playerID}' AND teamID = 'PHI'
     GROUP BY yearID
@@ -42,6 +42,7 @@ def getHomers(playerID):
     df = pd.DataFrame(results, columns=['Year', 'HomeRuns'])
     conn.close()
     return df
+
 
 
 

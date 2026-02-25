@@ -37,6 +37,8 @@ def getPlayerInfo(link):
     print('------------------')
     return playerInfo
 
+    
+
 headers = {
         "User-Agent": "ExampleWikiScraper/1.0 (https://githhub.com/emcombs23; emcombs.23.sv@gmail.com)",
     }

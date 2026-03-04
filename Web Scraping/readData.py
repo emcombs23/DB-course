@@ -1,6 +1,7 @@
 from sqlmodel import Session, select
 from models import engine, Bio, Stats
 import pandas as pd
+from sqlalchemy import func
 
 
 with Session(engine) as session:
@@ -38,6 +39,26 @@ with Session(engine) as session:
         .order_by(Bio.position, Bio.lastName)
     )
     
+    #Group Bio by position and count players.
+    statement = (
+        select(Bio.position, func.count().label('NumPlayers'))
+        .group_by(Bio.position)
+        .order_by(func.count().desc())
+    )
+
+    #Average weight per position, but only groups with avg > 190.
+    statement = (
+        select(Bio.position, func.avg(Bio.weight).label('AvgWeight'))
+        .group_by(Bio.position)
+        .having(func.avg(Bio.weight) > 190)
+        .order_by(func.avg(Bio.weight).desc())
+    )
+
+    #Join Bio and Stats to show first_name, last_name, and games_played.
+    statement = (
+        select(Bio.firstName, Bio.lastName,Stats.GP)
+        .join(Stats, (Bio.firstName == Stats.FirstName)&(Bio.lastName == Stats.LastName))
+    )
     records = session.exec(statement).all()
 
 df = pd.DataFrame(records)
